@@ -1,0 +1,68 @@
+<%- include("../partials/header.ejs") %> <%- include("../partials/sidebar.ejs")
+%>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="card">
+            <% if(message.success){ %>
+            <div class="alert alert-success"><%= message.success %></div>
+            <% }else if(message.fail) { %>
+            <div class="alert alert-danger"><%= message.fail %></div>
+            <% } %>
+            <div class="card-header" style="justify-content: space-between">
+              <h4>All Orders</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped" id="table-1">
+                  <thead>
+                    <th class="text-center">sr</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Admin Activation</th>
+                    <th class="text-center">Email Status</th>
+                  </thead>
+
+                  <tbody>
+                    <% var sr=1 %> <% user.forEach(data=>{%>
+                    <tr class="text-center">
+                      <td><%= sr++ %></td>
+                      <td><%=data.name%></td>
+                      <td><%=data.email %></td>
+                      <td>
+                        <% if(data.verified == true){ %>
+                      <input class="form-check-input" type="checkbox" id="verified" checked value="<%= data.verified  %>" data-id="<%= data._id %>">
+                        <% }else{ %>
+                   <input class="form-check-input" type="checkbox" id="verified" value="<%= data.verified %>" data-id="<%= data._id %>">
+                        <% } %>
+                      </td>
+                      <td>
+                        <% if(data.isActive == false){ %>
+                        <span class="badge badge-pill badge-danger"
+                          >Not verify</span
+                        >
+                        <% }else{%>
+                        <span class="badge badge-pill badge-success"
+                          >Verified</span
+                        >
+                        <%} %>
+                      </td>
+                      <td><%= %></td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%- include("../partials/footer.ejs") %>
+

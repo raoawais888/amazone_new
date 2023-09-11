@@ -1,0 +1,258 @@
+
+
+<%- include('../partials/masterHeader.ejs')%>
+<%- include('../partials/commanHeader.ejs')%>
+
+
+
+ <!-- Breadcrumb Section Begin -->
+ <section class="breadcrumb-section ">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <div class="breadcrumb__text">
+                  <h2>Organi Shop</h2>
+                  <div class="breadcrumb__option">
+                      <a href="./index.html">Home</a>
+                      <span>Shop</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+
+ <!-- Product Section Begin -->
+ <section class="product spad">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-3 col-md-5">
+              <div class="sidebar">
+                 
+                  <div class="sidebar__item">
+                      <h4>Price</h4>
+                      <div class="price-range-wrap">
+                          <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                              data-min="10" data-max="540">
+                              <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                              <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                              <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                          </div>
+                          <div class="range-slider">
+                              <div class="price-input">
+                                  <input type="text" id="minamount">
+                                  <input type="text" id="maxamount">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                 
+                 
+                 
+              </div>
+          </div>
+          <div class="col-lg-9 col-md-7">
+              
+              <div class="filter__item">
+                  <div class="row">
+                      <div class="col-lg-4 col-md-5">
+                          <div class="filter__sort">
+                              <span>Sort By</span>
+                              <select>
+                                  <option value="0">Default</option>
+                                  <option value="0">Default</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                          <div class="filter__found">
+                              <h6><span>16</span> Products found</h6>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-md-3">
+                          <div class="filter__option">
+                            <form action="" class="search_from">
+                              <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search by name" id="search_product">
+                                <div class="input-group-append">
+                                  <span class="input-group-text bg-transparent text-primary">
+                                    <i class="fa fa-search"></i>
+                                  </span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row w-100" id="product_append">
+                <% product.forEach(data=> { %>
+                  <div class="col-lg-4 col-md-6 col-sm-6">
+                      <div class="product__item">
+                          <div class="product__item__pic">
+                            <img src="/uploads/<%=data.image  %>" alt="">
+                          </div>
+                          <div class="product__item__text">
+                              <h6><a href="#"><%= data.name %></a></h6>
+                              <div class="footer_p">
+
+                                <h5>$<%= data.price  %></h5>
+                              <a href="/product-detail/<%= data._id %>"><i class="fa fa-shopping-cart"></i> </a>
+                              </div>
+                             
+                          </div>
+                      </div>
+                  </div>
+                  <% }) %>
+                 
+              </div>
+              <div class="product__pagination">
+                  <a href="#">1</a>
+                  <a href="#">2</a>
+                  <a href="#">3</a>
+                  <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Product Section End -->
+
+
+   
+
+
+
+
+    <!-- end product section -->
+
+
+    <%- include("../partials/footer.ejs") %>
+
+    <script>
+      $(document).ready(function(){
+      var navtimer,navleave;
+
+      $(document).on("mouseenter",".cat-p",function(){
+        
+			clearTimeout(navleave);
+			clearTimeout(navtimer);
+			var that = this;
+			navtimer = setTimeout(function(){
+				$(".tecihone").hide();
+				$(that).find(".tecihone").show();
+				$(".cat-p").removeClass("cat-p-hover");
+				$(that).addClass("cat-p-hover");
+			},60);
+		});
+	
+	
+		$(document).on("mouseleave",".cat-p",function(){
+			clearTimeout(navtimer);
+			clearTimeout(navleave);
+			var that = this;
+			navleave = setTimeout(function(){
+				$(".tecihone").hide();
+				$(".cat-p").removeClass("cat-p-hover");
+			},30);
+		});
+
+  })
+
+
+    // search filter 
+
+    // $("#search_product").on("keyup",function(){
+         
+    //   let search = $(this).val();
+       
+      
+
+
+    // })
+
+
+    // Define a debounce function
+function debounce(func, delay) {
+  let timeoutId;
+  
+  return function() {
+    const context = this;
+    const args = arguments;
+    
+    clearTimeout(timeoutId);
+    
+    timeoutId = setTimeout(function() {
+      func.apply(context, args);
+    }, delay);
+  };
+}
+
+// Function to be executed when the user stops typing (e.g., search)
+function performSearch() {
+  // Add your search logic here
+  const searchTerm = document.getElementById('search_product').value;
+     let search = {
+      search:searchTerm
+     }
+         $.ajax({
+           url:"/search_product",
+           type:"POST",
+           data: JSON.stringify(search),
+              contentType: "application/json; charset=utf-8",
+              traditional: true,
+           success:function(data){
+            let html = ``;
+              if(data.data.length > 0){
+
+                  data.data.forEach((product)=>{
+
+                    html+=`  <div class="col-lg-4 col-md-6 col-sm-6">
+                      <div class="product__item">
+                          <div class="product__item__pic">
+                            <img src="/uploads/${product.image}" alt="">
+                          </div>
+                          <div class="product__item__text">
+                              <h6><a href="/product_detail/${product._id}">${product.name}</a></h6>
+                              <div class="footer_p">
+
+                                <h5>$${product.price}</h5>
+                                <a href="/product_detail/${product._id}"><i class="fa fa-shopping-cart"></i> </a>
+                              </div>
+                             
+                          </div>
+                      </div>
+                  </div>`;
+
+                  })
+                  
+                     $("#product_append").html(html);
+                       
+              }else{
+                $("#product_append").html("<h2>Search Product Not Match</h2>");
+
+              }
+           }
+
+         })
+
+
+}
+
+// Get a reference to the search input element
+const searchInput = document.getElementById('search_product');
+
+// Create a debounced version of the performSearch function
+const debouncedSearch = debounce(performSearch, 300); // 300 milliseconds delay
+
+// Add an event listener to the search input
+searchInput.addEventListener('keyup', debouncedSearch);
+
+
+
+
+
+
+    </script>

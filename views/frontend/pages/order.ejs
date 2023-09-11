@@ -1,0 +1,92 @@
+
+<body class="sub_page">
+
+
+    <!-- header section strats -->
+   <%- include("../partials/header.ejs") %>
+    <!-- end header section -->
+  </div>
+
+
+     
+
+
+  <section id="breadcrumb">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Orders</h2>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- about section -->
+
+
+  <% if(typeof order === 'undefined'){  %>
+
+    <!-- product cart section -->
+   
+    <section class="cart_section">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-12">
+                <div class="alert alert-success">Cart Item Not Available</div>
+                </div>
+
+                <div class="col-sm-12">
+                    <a href="/product" class="back_shop_btn">Back To Shop </a>
+                </div>
+
+            </div>
+        </div>
+        </section>
+
+     <% }else{ %>
+  <section class="order_section py-5">
+    <div class="container">
+         <div class="col-sm-12">
+
+            <table class="table table-responsive-sm">
+                <thead style="background-color: #434f78; color:#fff">
+                    <th class="text-center">sr</th>
+                    <th class="text-center">Order Number</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Detail</th>
+                </thead>
+
+                <tbody>
+                  <% var sr=1 %>
+                  <% order.forEach(data=>{%>
+                    <tr class="text-center">
+                        <td><%= sr++ %></td>
+                        <td><%= data.orderNo  %></td>
+                        <td> 
+                          <% if(data.status == false){  %>
+                          <span class="badge badge-pill badge-warning">Process</span>
+                        <% }else{%>
+                          <span class="badge badge-pill badge-warning">Complete</span>
+                        <%} %>
+                        </td>
+                        <td><a href="/order_detail/<%=data.orderNo%>" class="btn btn-warning">Order Detail</a></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
+         </div>
+    </div>
+  </section>
+
+
+  <% } %>
+
+  <!-- end about section -->
+
+
+  <%- include("../partials/footer.ejs")  %>

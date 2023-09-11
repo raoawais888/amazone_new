@@ -1,0 +1,86 @@
+<%- include('../partials/masterHeader.ejs')%>
+<%- include('../partials/commanHeader.ejs')%>
+
+ <!-- Breadcrumb Section Begin -->
+ <section class="breadcrumb-section ">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <div class="breadcrumb__text">
+                  <h2>Login</h2>
+                  <div class="breadcrumb__option">
+                      <a href="/">Home</a>
+                      <span>Login</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<div class="container my-5">
+
+  <div class="row">
+    <div class="col-md-5 mx-auto login_box contact-form spad"> 
+      
+  
+<form method="post">
+
+
+     
+    <% if(message.success){ %>
+    <div class="alert alert-success"><%= message.success %></div>
+    <% }else if(message.fail) { %>
+    <div class="alert alert-danger"><%= message.fail %></div>
+    <% } %>
+
+      <% if(typeof message_show != "undefined") {%>
+        <div class="alert alert-danger"><%= message_show%></div>
+
+      <% } %>
+      <div class="contact__form__title">
+        <h2>Login here</h2>
+    </div>
+    <label for="email"><b>Email</b></label>
+    <input type="text" class="form-control" placeholder="Enter Email" name="email" id="email" />
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" class="form-control"  placeholder="Enter Password" name="password" id="pass" />
+    <div class="g-recaptcha" data-sitekey="6Lcn_b0mAAAAADO487_52AVuD65Q_lsqlH8EUfy8"></div>
+    <button type="submit" class="log_btn action_btn d-block w-100 site-btn">Login</button> 
+    <!-- <a href="/auth/facebook" class="loginBtn loginBtn--facebook">
+      Login with Facebook
+    </a> -->
+
+    <div class="social_btns d-flex justify-content-between  w-100 mt-3">
+      <a class="button button--social-login button--googleplus" href="/auth/google"><i class="icon fa fa-google-plus"></i>Login With Google +</a>
+
+      <a class="button button--social-login button--twitter" href="/auth/twitter"><i class="icon fa fa-twitter"></i>Login With Twitter</a>
+    </div>
+   
+   
+
+    
+ 
+ 
+    <div class="row">
+      <div class="col-md-6 mt-2">
+        <p class="mb-0" style="font-size: 14px;">Not a member ?  <a href="/register" class="anchor_btn">Sign Up</a>.</p>
+  
+      </div>
+      <div class="col-md-6 mt-2 text-right">
+        <p class="mb-0" style="font-size: 14px;">Forgot Password?  <a href="/forgot_password" class="anchor_btn">Click Here</a>.</p>
+      </div>
+
+     
+      
+      
+    </div>
+    
+</form>
+</div>
+</div>
+</div>
+
+<%- include('../partials/footer.ejs'); %>

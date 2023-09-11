@@ -1,0 +1,226 @@
+<%- include("../../partials/header.ejs") %> <%- include("../../partials/sidebar.ejs") %>
+    <div class="main-content">
+      <section class="section">
+        <div class="section-body">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Add Product</h4>
+                </div>
+                <% if(message.success){ %>
+                  <div class="alert alert-success">
+                    <%= message.success %>
+                  </div>
+                  <% }else if(message.fail) { %>
+                    <div class="alert alert-danger">
+                      <%= message.fail %>
+                    </div>
+                    <% } %>
+                      <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
+
+                          <div class="form-group">
+                            <label>Brand</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-list-alt"></i>
+                                </div>
+                              </div>
+                              <select name="brand" id="brand" class="form-control">
+                                <option value="" selected disabled>Select Brand</option>
+                                <% brands.forEach(brand=> { %>
+                                  <option value="<%= brand._id%>">
+                                    <%= brand.name %>
+                                  </option>
+                                  <% }) %>
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Category</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-list-alt"></i>
+                                </div>
+                              </div>
+
+                              
+                                <select name="p_cat" id="category_id" class="form-control">
+                                  <div id="select_append">
+                                  </div>
+                                </select>
+                             
+                              
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Models</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-list-alt"></i>
+                                </div>
+                              </div>
+                              <select name="model" id="model_id" class="form-control">
+
+                         
+                              </select>
+                            </div>
+                          </div>
+
+
+                          <div class="form-group">
+                            <label>Product Name</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-list-alt"></i>
+                                </div>
+                              </div>
+                              <input type="text" class="form-control" name="pname" />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Product Price</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-list-alt"></i>
+                                </div>
+                              </div>
+                              <input type="number" class="form-control" name="pprice" />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Stock</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-list-alt"></i>
+                                </div>
+                              </div>
+                              <input type="number" class="form-control" name="qty" />
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Product Image</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-image"></i>
+                                </div>
+                              </div>
+                              <input type="file" class="form-control" name="productImg" />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Product Description</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <i class="fa fa-image"></i>
+                                </div>
+                              </div>
+                              <textarea name="pdesc" id="" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                          <button type="reset" class="btn btn-danger">Reset</button>
+                        </form>
+                      </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <%- include("../../partials/footer.ejs") %>
+
+      <script>
+        $(document).ready(function () {
+
+          $("#brand").on("change", function () {
+
+            let brand = $(this).val();
+
+            const brandinfo = {
+              brand: brand
+            }
+
+
+            $.ajax({
+              url: "/admin/category-fetch",
+              type: "POST",
+              data: JSON.stringify(brandinfo),
+              contentType: "application/json; charset=utf-8",
+              traditional: true, // This option is not needed when sending JSON data.
+              success: function (data) {
+                let html = ``;
+                if (data.data.length > 0) {
+                  html += `<option  selected disabled> Select Category<option/>`;
+                  data.data.forEach((data, index) => { 
+                    html += `<option value="${data._id}"> ${data.name}<option/>`;
+                  })
+                  // console.log(html);
+                  $("#category_id").html(html);
+    
+               
+                 
+
+                } else {
+                  html += `<option value="" >No Category Available<option/>`;
+                  $("#category_id").html(html);
+                }
+
+              },
+            });
+
+          })
+
+          //  mmodel fetch 
+          $("#category_id").on("change", function () {
+
+            let brand = $(this).val();
+
+            const brandinfo = {
+              brand: brand
+            }
+
+
+            $.ajax({
+              url: "/admin/model-fetch",
+              type: "POST",
+              data: JSON.stringify(brandinfo),
+              contentType: "application/json; charset=utf-8",
+              traditional: true, // This option is not needed when sending JSON data.
+              success: function (data) {
+                console.log(data);
+                let html = ``;
+                if (data.data.length > 0 ) {
+                  data.data.forEach((data, index) => {
+                    html += `<option value="${data._id}"> ${data.name}<option/>`;
+                    $("#model_id").html(html);
+
+                  })
+
+                  
+
+                } else {
+                  html += `<option value="" >No Model Available<option/>`;
+                  $("#model_id").html(html);
+                }
+
+              },
+            });
+
+          })
+
+
+        })
+      </script>

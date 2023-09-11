@@ -1,0 +1,223 @@
+
+
+<%- include('../partials/masterHeader.ejs')%>
+<%- include('../partials/commanHeader.ejs')%>
+        <!-- Breadcrumb Section Begin -->
+ <section class="breadcrumb-section ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Cart</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">Home</a>
+                        <span>Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!-- Breadcrumb Section End -->
+
+    <% if(typeof cart === 'undefined'){  %>
+
+        <!-- product cart section -->
+       
+        <section class="cart_section content_scroll my-5">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                    <div class="alert alert-success">Cart Item Not Available</div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <a href="/product" class="back_shop_btn">Back To Shop </a>
+                    </div>
+
+                </div>
+            </div>
+            </section>
+
+         <% }else{ %>
+            <section class="cart_section content_scroll">
+
+            
+              
+                <div class="container">
+    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-responsive-md">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                        <th colspan="2">Actions</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+    
+                                    <% cart.forEach(data => { %>
+                                   <tr>
+                                       <td>
+                                        <div class="media">
+                                            <a class="thumbnail pull-left mr-2" href="#">
+                                                <img class="media-object" src="/uploads/<%=data.item.image  %>" style="width: 72px; height: 72px;" />
+                                            </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading"><a href="#"><%=data.item.name  %></a></h4>
+                                               
+                                               
+                                                <span class="text-success"><strong> </strong></span>
+                                            </div>
+                                        </div>
+                                       </td>
+    
+                                       <td>  <input type="email" class="form-control" id="exampleInputEmail1" value="<%= data.qty  %>" /></td>
+                                       <td><strong>$ <span id="price"> <%=data.item.price %></span>.00</strong></td>
+                                       <td><strong>$ <span id="qty_price"> <%=data.item.price * data.qty  %> </span>.00</strong></td>
+                                       <td colspan="2"> <button type="button" id="delete_cart" data-did ="<%= JSON.stringify(data.item)%>" class="btn btn-danger action_btn"><span class="fa fa-remove"></span> Remove</button>
+                                        <button type="button"  data-id = "<%= JSON.stringify(data.item)%>"  id="update_btn" class="btn btn-success action_btn"> Update</button></td>
+                                      
+                                   </tr>
+    
+                                   <% }) %>
+    
+                                   <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><h3>Total</h3></td>
+                                    <td><h3><strong >€ <span id="total_price"> <%= session.cart.totalPrice %></span> .00</strong></h3></td>
+                                   </tr>
+                                   <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <% if(user){ %>
+                                <td> <a  href="/checkout" class="btn btn-success">Checkout</span></button></td>
+                                    <% }else{ %>
+                                        <td> <a  href="/login" class="btn btn-success">Login To checkout</span></button></td>
+                                    <% } %>
+                                   </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+    
+                 
+                           
+                           
+                        
+                               
+                              
+    
+                         
+                         
+    
+                          
+                                
+                    </div>
+                </div>
+                  
+                
+                  
+                
+    
+            </section>
+           
+
+
+            <% }  %>
+             
+
+        <!-- end product detail section -->
+  <!-- Shoping Cart Section Begin -->
+  <section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="shoping__product">Products</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% cart.forEach(data => { %>
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <img src="/uploads/<%=data.item.image  %>" alt="" height="100" width="100" >
+                                    <h5>Vegetable’s Package</h5>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    $55.00
+                                </td>
+                                <td class="shoping__cart__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="1">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    $110.00
+                                </td>
+                                <td class="shoping__cart__item__close">
+                                    <span class="icon_close"></span>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                        Upadate Cart</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__continue">
+                    <div class="shoping__discount">
+                        <h5>Discount Codes</h5>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your coupon code">
+                            <button type="submit" class="site-btn">APPLY COUPON</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Cart Total</h5>
+                    <ul>
+                        <li>Subtotal <span>$454.98</span></li>
+                        <li>Total <span>$454.98</span></li>
+                    </ul>
+                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
+
+        <%- include("../partials/footer.ejs") %>

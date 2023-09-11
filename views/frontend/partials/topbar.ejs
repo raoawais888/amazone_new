@@ -1,0 +1,212 @@
+<!-- <div class="header_top">
+  <div class="container">
+    <div class="top_nav_container">
+      <div class="contact_nav">
+        <a class="navbar-brand" href="/">
+          <span>
+           <img src="/images/logo.png" alt="" width="175">
+          </span>
+        </a>
+      </div>
+      <form class="search_form" method="POST" action="/search" id="search_form_submit">
+        <div class="input-group">
+ <div class="input-group-btn search-panel">
+  <button type="button" class="btn btn-default dropdown-toggle all_btn" data-toggle="dropdown">
+    <span id="search_concept">All</span> <span class="caret"></span>
+  </button> 
+  <ul class="dropdown-menu scrollable-dropdown" role="menu">
+      
+      <% category.forEach(data=>{ %>
+    
+          <li><a href="$"> <%= data.name %> </a></li>
+
+        <% }) %>
+    
+  </ul>
+ </div>
+ <input type="hidden" name="category" value="all" id="search_param">
+ <input type="text" class="form-control" name="search" id="search" placeholder="Search" required>
+ 
+ 
+          <button class="search_btn" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+     
+</div>
+   </form>
+ 
+   
+   <div id="google_translate_element"></div>
+
+      <div class="user_option_box">
+        
+      
+ 
+<button class="btn btn-danger  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </button>
+  <div class="dropdown-menu">
+   
+    <% if(user){ %>
+      <a class="dropdown-item" href="/order">Orders</a>
+      <form action="/logout" method="POST" id="log_form" style="cursor: pointer; margin-bottom: 0px;" >
+        <a href="#"  onclick="document.getElementById('log_form').submit()" class="account-link dropdown-item">Logout</a> 
+      </form>
+     
+
+     
+    <% }else{ %>
+
+      <a class="dropdown-item" href="/login">Login</a>
+      <a class="dropdown-item" href="/register">Register</a>
+   <% } %>
+  </div>
+
+        <a href="/cart" class="cart-link">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          <span id="cart_counter"><%= session.cart ? session.cart.totalQty : '0' %></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+ <!-- Humberger Begin -->
+ <div class="humberger__menu__overlay"></div>
+ <div class="humberger__menu__wrapper">
+     <div class="humberger__menu__logo">
+         <a href="/"><img src="img/logo.png" alt=""></a>
+     </div>
+     <div class="humberger__menu__cart">
+         <ul>
+          
+             <li><a href="/cart"><i class="fa fa-shopping-bag"></i> <span><%= session.cart ? session.cart.totalQty : '0' %></span></a></li>
+         </ul>
+        
+     </div>
+     <div class="humberger__menu__widget">
+         <div class="header__top__right__language">
+             <img src="img/language.png" alt="">
+             <div>English</div>
+             <span class="arrow_carrot-down"></span>
+             <ul>
+                 <li><a href="#">Spanis</a></li>
+                 <li><a href="#">English</a></li>
+             </ul>
+         </div>
+         <div class="header__top__right__auth">
+             <a href="/login"><i class="fa fa-user"></i> Login</a>
+         </div>
+     </div>
+     <nav class="humberger__menu__nav mobile-menu">
+         <ul>
+             <li class="active"><a href="/">Home</a></li>
+             <li><a href="/product">Shop</a></li>
+             <li><a href="#">Pages</a>
+                 <ul class="header__menu__dropdown">
+                     <li><a href="./shop-details.html">Shop Details</a></li>
+                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                     <li><a href="./checkout.html">Check Out</a></li>
+                     <li><a href="./blog-details.html">Blog Details</a></li>
+                 </ul>
+             </li>
+             <li><a href="./blog.html">Blog</a></li>
+             <li><a href="/contact">Contact</a></li>
+         </ul>
+     </nav>
+     <div id="mobile-menu-wrap"></div>
+     <div class="header__top__right__social">
+         <a href="#"><i class="fa fa-facebook"></i></a>
+         <a href="#"><i class="fa fa-twitter"></i></a>
+         <a href="#"><i class="fa fa-linkedin"></i></a>
+         <a href="#"><i class="fa fa-pinterest-p"></i></a>
+     </div>
+     <div class="humberger__menu__contact">
+         <ul>
+             <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+             <li>Free Shipping for all Order of $99</li>
+         </ul>
+     </div>
+ </div>
+ <!-- Humberger End -->
+
+ <!-- Header Section Begin -->
+ <header class="header">
+     <div class="header__top">
+         <div class="container">
+             <div class="row">
+                 <div class="col-lg-6 col-md-6">
+                     <div class="header__top__left">
+                         <ul>
+                             <li><i class="fa fa-envelope"></i> info@amazon2amazon.com</li>
+                             <li>Free Shipping for all Order of $99</li>
+                         </ul>
+                     </div>
+                 </div>
+                 <div class="col-lg-6 col-md-6">
+                     <div class="header__top__right">
+                         <div class="header__top__right__social">
+                             <a href="#"><i class="fa fa-facebook"></i></a>
+                             <a href="#"><i class="fa fa-twitter"></i></a>
+                             <a href="#"><i class="fa fa-linkedin"></i></a>
+                             <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                         </div>
+                         <div class="header__top__right__language">
+                             <img src="img/language.png" alt="">
+                             <div>English</div>
+                             <span class="arrow_carrot-down"></span>
+                             <ul>
+                                 <li><a href="#">Spanis</a></li>
+                                 <li><a href="#">English</a></li>
+                             </ul>
+                         </div>
+                         <div class="header__top__right__auth">
+                             <a href="/login"><i class="fa fa-user"></i> Login</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="container">
+         <div class="row">
+             <div class="col-lg-3">
+                 <div class="header__logo">
+                     <a href="/"><img src="img/logo.png" alt=""></a>
+                 </div>
+             </div>
+             <div class="col-lg-6">
+                 <nav class="header__menu">
+                     <ul>
+                         <li class="active"><a href="/">Home</a></li>
+                         <li><a href="/product">Shop</a></li>
+                         <li><a href="#">Pages</a>
+                             <ul class="header__menu__dropdown">
+                                 <li><a href="./shop-details.html">Shop Details</a></li>
+                                 <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                 <li><a href="./checkout.html">Check Out</a></li>
+                                 <li><a href="./blog-details.html">Blog Details</a></li>
+                             </ul>
+                         </li>
+                         <li><a href="./blog.html">Blog</a></li>
+                         <li><a href="/contact">Contact</a></li>
+                     </ul>
+                 </nav>
+             </div>
+             <div class="col-lg-3">
+                 <div class="header__cart">
+                     <ul>
+                        
+                         <li><a href="/cart"><i class="fa fa-shopping-bag"></i> <span><%= session.cart ? session.cart.totalQty : '0' %></span></a></li>
+                     </ul>
+                    
+                 </div>
+             </div>
+         </div>
+         <div class="humberger__open">
+             <i class="fa fa-bars"></i>
+         </div>
+     </div>
+ </header>
+ <!-- Header Section End -->
